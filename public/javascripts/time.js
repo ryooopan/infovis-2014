@@ -9,6 +9,7 @@ function createsvg() {
   var currentYear = 1820;
   var color = d3.scale.category10();
   var dragging = false;
+  var highlight;
   
   var incomeScale = d3.scale.log()
     .domain([100, 100000])
@@ -129,6 +130,18 @@ function createsvg() {
       'text': 'Life expectancy (years)'
     });
 
+  var label = svg.append('text')
+    .attr({
+      'class': 'label',
+      'font-size': 30,
+      'x': 100,
+      'y': 200,
+    })
+    .style({
+      'z-index': 100,
+    })
+    .text('');
+    
   var yearLabel = svg.append('text')
     .attr({
       'class': 'yearLabel',
@@ -151,7 +164,7 @@ function createsvg() {
 	'visibility': 'hidden',
       })
       .text("a simple tooltip");
-    
+
     var circle = svg.append('g')
       .attr({
 	'class': 'circles',
@@ -167,20 +180,56 @@ function createsvg() {
       })
       .call(position)
       .sort(order)
-      .on('mouseover', function(d) { tooltip.style("visibility", "visible"); })
-      .on("mousemove", function(d) { return tooltip.style('top', ( d3.event.pageY - 10 ) + 'px' )
-				     .style('left', ( d3.event.pageX+10 ) + 'px' )
-				     .style('color', regionScale(d.region))
-				     .style('background-color', 'white')
-				     .text(d.name + ',' + d.region + ', income: ' + d.income + ', life: ' + d.lifeExpectancy );
 
+      .on('mouseover', function(d) { 
+	tooltip.style("visibility", "visible"); 
       })
-      .on("mouseout", function() { return tooltip.style("visibility", "hidden"); } );
-      //.on('click', function() { return  } );
+
+      .on("mousemove", function(d) { 
+	d3.select(this)
+	  .transition()
+	  .attr({
+	    'r': populationScale(d.population) + 10,
+	  });
+	tooltip.text(d.name + ',' + d.region + ', income: ' + d.income + ', life: ' + d.lifeExpectancy )
+	  .style({
+	    'top': ( d3.event.pageY - 10 ) + 'px' ,
+	    'left': ( d3.event.pageX+10 ) + 'px'  ,
+	    'color': regionScale(d.region) ,
+	    'background-color': 'white',
+	  });
+      })
+
+      .on('mouseout', function(d) { 
+	d3.select(this)
+	  .transition()
+	  .attr({
+	    'r': populationScale(d.population) ,
+	  });
+	tooltip.style("visibility", "hidden"); 
+      } )
+
+      .on('click', function(d) { 
+	d3.selectAll('.circle')
+	  .style('opacity', '0.3')
+	  .attr('stroke', 'white');
+	d3.select(this)
+	  .style('opacity', '1')
+	  .attr('stroke', 'black');
+	highlight = d3.select(this);
+	label.text(d.name)
+	  .attr({
+	    'x': highlight.attr('cx') ,
+	    'y': highlight.attr('cy') ,
+	    'fill': regionScale(d.region),
+	  });
+
+      });
 
     // accept key events
     d3.select('body')
-      .on('keypress', function() { updateYear(d3.event.keyCode); } )
+      .on('keydown', function() { keyDown(d3.event.keyCode); } )
+
 
     var drag = d3.behavior.drag()
       //.origin(Object)
@@ -202,9 +251,8 @@ function createsvg() {
 
     function dragYear(p) {
       console.log(p);
-      currentYear = sliderScale(p) 
-      yearLabel.text(Math.round(currentYear) );
-      circle.data(interpolateData(currentYear), function(d) { return d.name; } ).call(position).sort(order);
+      currentYear = sliderScale(p);
+      updateYear();
     }
   
     function dragEnd() {
@@ -216,18 +264,34 @@ function createsvg() {
 	.attr('opacity', 1);
     }  
 
-    function updateYear(key) {
-      console.log(key); 
+    function keyDown(key) {
       // 39: right arrow, 37: left arrow 
-      if(key == 107 && currentYear != 1800) {
-	yearLabel.text(Math.round(--currentYear));
-	circle.data(interpolateData(currentYear), function(d) { return d.name; } ).call(position).sort(order);
-	slider.attr('cx', yearScale(currentYear) );
-      } else if(key == 106 && currentYear != 2009) {
-	yearLabel.text(Math.round(++currentYear));
-	circle.data(interpolateData(currentYear), function(d) { return d.name; }).call(position).sort(order);
-	slider.attr('cx', yearScale(currentYear) );
+      console.log(key); 
+      if( (key == 37 || key == 75) && currentYear != 1800) {
+	--currentYear;
+      } else if( (key == 39 || key == 74) && currentYear != 2009) {
+	++currentYear;
+      } else if(key == 27) {
+	d3.selectAll('.circle')
+	  .style('opacity', '1')
+	  .attr('stroke', 'white');
+	label.text('');
       }
+      updateYear();
+    }
+
+    function updateYear() {
+      yearLabel.text(Math.round(currentYear) );
+      circle.data(interpolateData(currentYear), function(d) { return d.name; } ).call(position).sort(order);
+      slider.attr('cx', yearScale(currentYear) );
+      label.attr({
+	'x': highlight.attr('cx') ,
+	'y': highlight.attr('cy') ,
+      });
+    }
+
+    function updateLabel() {
+
     }
 
     function position(p) {

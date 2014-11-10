@@ -84,8 +84,7 @@ function createsvg() {
 	  .attr(sliderDefault);
       }
     });
-       
-    
+
   svg.append('g')
     .attr({
       'class': 'incomeAxis',
@@ -128,8 +127,8 @@ function createsvg() {
       'y': 15,
       'transform': 'rotate(-90)',
       'text': 'Life expectancy (years)'
-    });
-
+    });  
+  
   var label = svg.append('text')
     .attr({
       'class': 'label',
@@ -151,6 +150,42 @@ function createsvg() {
       'y': height - 35,
     })
     .text(currentYear);
+
+  
+  var regions = [
+    'America',
+    'Europe & Central Asia',
+    'East Asia & Pacific', 
+    'Middle East & North Africa', 
+    'South Asia',
+    'Sub-Saharan Africa', 
+  ]
+
+  for(var i=0 ; i < regions.length ; i++) {
+    svg.append('text')
+      .attr({
+	'class': 'regionLabel',
+	'data-region': regionScale(regions[i]),
+	'text-anchor': 'center',
+	'font-size': 15,
+	'fill': regionScale(regions[i]),
+	'x': width - 120, 
+	'y': 60 + 30 * i,
+      })
+      .style('cursor', 'pointer')
+      .text(regions[i])
+      
+      .on('click', function(d) { 
+	var currentRegion = 
+	  d3.selectAll('.circle')
+	  .style('opacity', '0.1')
+	  .attr('stroke', 'white');
+	d3.selectAll('[data-region="' + regionScale(d3.select(this).text()) + '"]')
+	  .style('opacity', '1');
+	label.text('');
+      });
+  }
+
 
   d3.json('/data/nations.json', function(nations) {
     // https://github.com/mbostock/d3/wiki/Arrays
@@ -175,6 +210,8 @@ function createsvg() {
       .append('circle')
       .attr({
 	'class': 'circle',
+	'data-region': function(d) { return regionScale(d.region) },
+	'data-name': function(d) { return d.name },
 	'fill': 'white',
 	'stroke': 'white',
       })
@@ -211,7 +248,7 @@ function createsvg() {
 
       .on('click', function(d) { 
 	d3.selectAll('.circle')
-	  .style('opacity', '0.3')
+	  .style('opacity', '0.2')
 	  .attr('stroke', 'white');
 	d3.select(this)
 	  .style('opacity', '1')
@@ -250,7 +287,6 @@ function createsvg() {
     }
 
     function dragYear(p) {
-      console.log(p);
       currentYear = sliderScale(p);
       updateYear();
     }
@@ -266,7 +302,6 @@ function createsvg() {
 
     function keyDown(key) {
       // 39: right arrow, 37: left arrow 
-      console.log(key); 
       if( (key == 37 || key == 75) && currentYear != 1800) {
 	--currentYear;
       } else if( (key == 39 || key == 74) && currentYear != 2009) {
@@ -284,10 +319,12 @@ function createsvg() {
       yearLabel.text(Math.round(currentYear) );
       circle.data(interpolateData(currentYear), function(d) { return d.name; } ).call(position).sort(order);
       slider.attr('cx', yearScale(currentYear) );
-      label.attr({
-	'x': highlight.attr('cx') ,
-	'y': highlight.attr('cy') ,
-      });
+      if (highlight != undefined) {
+	label.attr({
+	  'x': highlight.attr('cx') ,
+	  'y': highlight.attr('cy') ,
+	});
+      }
     }
 
     function updateLabel() {

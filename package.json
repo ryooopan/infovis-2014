@@ -8,8 +8,7 @@
   "dependencies": {
     "express": "3.4.0",
     "jade": "*",
-    "bower": "*",
-    "topojson": "*"
+    "bower": "1.2.8"
   },
   "scripts": {
     "postinstall": "bower install"

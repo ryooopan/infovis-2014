@@ -8,6 +8,10 @@
   "dependencies": {
     "express": "3.4.0",
     "jade": "*",
+    "bower": "*",
     "topojson": "*"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }

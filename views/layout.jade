@@ -2,12 +2,19 @@ doctype html
 html(lang='en')
   head
     title= title
+    link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel="stylesheet", href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css")
-    script(src="//code.jquery.com/jquery-1.10.2.js")
-    script(src="//code.jquery.com/ui/1.11.2/jquery-ui.js")
-    script(src='/javascripts/d3.min.js')
+    script(src='/bower_components/jquery/dist/jquery.min.js')
+    script(src='/bower_components/d3/d3.min.js') 
+    script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
 
+  div.top
+    form.form-horizontal(method="post", id="loginForm")
+      label Username
+      input.span3(id="username", type="text", name="User", placeholder="Enter your username")
+      label Password
+      input.span3(id="password", type="password", name="Password")
+      input.btn(type="submit", value="Log In")
 
   body
     block content

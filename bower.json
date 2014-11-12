@@ -1,0 +1,21 @@
+{
+  "name": "Ryo Suzuki",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ryooopan/infovis-2014",
+  "authors": [
+    "Ryo Suzuki <ryooopan@googlemail.com>"
+  ],
+  "description": "inforamation visualization with d3.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.0",
+    "d3": "~3.4.13"
+  }
+}

@@ -4,7 +4,7 @@
  */
 
 exports.index = function(req, res){
-  res.render('history', { title: 'Express' });
+  res.render('history', { title: 'Information Visulization with D3.js' });
 };
 
 exports.history = function(req, res){

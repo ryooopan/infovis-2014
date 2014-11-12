@@ -3,7 +3,7 @@ createsvg();
 
 function createsvg() {
   var width = 800;
-  var height = 800;
+  var height = 600;
 
   var color = d3.scale.linear()
     .domain([0, 0.05, 0.1, 0.2, 0.3])

@@ -129,9 +129,9 @@ function createsvg() {
       'text': 'Life expectancy (years)'
     });  
   
-  var label = svg.append('text')
+  var countryLabel = svg.append('text')
     .attr({
-      'class': 'label',
+      'class': 'countryLabel',
       'font-size': 30,
       'x': 100,
       'y': 200,
@@ -182,7 +182,7 @@ function createsvg() {
 	  .attr('stroke', 'white');
 	d3.selectAll('[data-region="' + regionScale(d3.select(this).text()) + '"]')
 	  .style('opacity', '1');
-	label.text('');
+	countryLabel.text('');
       });
   }
 
@@ -254,7 +254,7 @@ function createsvg() {
 	  .style('opacity', '1')
 	  .attr('stroke', 'black');
 	highlight = d3.select(this);
-	label.text(d.name)
+	countryLabel.text(d.name)
 	  .attr({
 	    'x': highlight.attr('cx') ,
 	    'y': highlight.attr('cy') ,
@@ -310,7 +310,7 @@ function createsvg() {
 	d3.selectAll('.circle')
 	  .style('opacity', '1')
 	  .attr('stroke', 'white');
-	label.text('');
+	countryLabel.text('');
       }
       updateYear();
     }
@@ -320,7 +320,7 @@ function createsvg() {
       circle.data(interpolateData(currentYear), function(d) { return d.name; } ).call(position).sort(order);
       slider.attr('cx', yearScale(currentYear) );
       if (highlight != undefined) {
-	label.attr({
+	countryLabel.attr({
 	  'x': highlight.attr('cx') ,
 	  'y': highlight.attr('cy') ,
 	});

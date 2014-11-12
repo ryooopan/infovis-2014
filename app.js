@@ -29,8 +29,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/time', routes.time);
-app.get('/map', routes.map);
+app.get('/history', routes.history);
+app.get('/japan', routes.japan);
 app.get('/us', routes.us);
 app.get('/users', user.list);
 

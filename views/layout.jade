@@ -6,15 +6,21 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/bower_components/jquery/dist/jquery.min.js')
     script(src='/bower_components/d3/d3.min.js') 
+    script(src='/bower_components/topojson/topojson.js')
     script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
 
-  div.top
-    form.form-horizontal(method="post", id="loginForm")
-      label Username
-      input.span3(id="username", type="text", name="User", placeholder="Enter your username")
-      label Password
-      input.span3(id="password", type="password", name="Password")
-      input.btn(type="submit", value="Log In")
+  nav.navbar.navbar-default
+    div.container-fluid
+      div.navbar-header
+        a.navbar-brand(href='/') Information Visualization with D3.js
+      div.collabpse.navbar-collapse
+        ul.nav.navbar-nav
+          li
+            a(href='history') World History
+          li
+            a(href='japan') Japan Population
+          li
+            a(href='map') US Unemployment
 
   body
     block content

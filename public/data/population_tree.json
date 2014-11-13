@@ -1,0 +1,38 @@
+population_list = {
+  "name": "Kanto-Kansai", "size" : 59491507,
+  "children": [
+    {
+      "name": "Kanto Area", "size" : 38588334,
+      "children": [
+        {
+          "name": "Tokyo", "size" : 13159388,
+          "children" : [
+            { "name": "23 Wards", "size": 8945695 },
+            { "name": "Others", "size": 4213693 }
+            ]
+          },
+        { "name": "Kanagawa", "size": 9048331 },
+        { "name": "Chiba", "size": 6216289 },
+        { "name": "Ibaraki", "size": 2969770 },
+        { "name": "Saitama", "size": 7194556 }
+        ]
+    },
+    {
+      "name": "Kansai Area", "size" : 20903173,
+      "children": [
+        {
+          "name": "Osaka",  "size" : 8865245,
+          "children" : [
+            { "name": "Osaka-city", "size": 2665314 },
+            { "name": "Others", "size": 6199931 }
+            ]
+          },
+        { "name": "Hyogo", "size": 5588133 },
+        { "name": "Kyoto", "size": 2636092 },
+        { "name": "Shiga", "size": 1410777 },
+        { "name": "Wakayama", "size": 1002198 },
+        { "name": "Nara", "size": 1400728 }
+        ]
+      }
+    ]
+};

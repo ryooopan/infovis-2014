@@ -18,3 +18,11 @@ exports.japan = function(req, res){
 exports.us = function(req, res){
   res.render('us');
 };
+
+exports.tree = function(req, res){
+  res.render('tree');
+};
+
+exports.treemap = function(req, res){
+  res.render('treemap');
+};

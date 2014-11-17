@@ -26,3 +26,8 @@ exports.tree = function(req, res){
 exports.treemap = function(req, res){
   res.render('treemap');
 };
+
+exports.network = function(req, res){
+  res.render('network');
+};
+

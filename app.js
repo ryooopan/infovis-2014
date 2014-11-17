@@ -34,6 +34,7 @@ app.get('/japan', routes.japan);
 app.get('/us', routes.us);
 app.get('/tree', routes.tree);
 app.get('/treemap', routes.treemap);
+app.get('/network', routes.network);
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

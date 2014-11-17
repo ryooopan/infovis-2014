@@ -176,7 +176,7 @@ for(var i=0 ; i < regions.length ; i++) {
 	d3.selectAll('.circle')
 	.style('opacity', '0.1')
 	.attr('stroke', 'white');
-      d3.selectAll('[data-region='' + regionScale(d3.select(this).text()) + '']')
+      d3.selectAll("[data-region='" + regionScale(d3.select(this).text()) + "']")
 	.style('opacity', '1');
       countryLabel.text('');
     });

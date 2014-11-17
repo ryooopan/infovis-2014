@@ -6,11 +6,11 @@ var color = d3.scale.linear()
   .range(['#fff', '#fff7bc', '#fec44f', '#d95f0e', '#f03b20']);
 
 
-var svg = d3.select("body")
-  .append("svg")
+var svg = d3.select('body')
+  .append('svg')
   .attr({
-    "width": width,
-    "height": height,
+    'width': width,
+    'height': height,
   });
 
 var unempHash = {};
@@ -20,7 +20,7 @@ d3.csv('/data/us_unemployment_rate.csv', function(error, data) {
   dataset = data;
 });
 
-d3.json("/data/us-counties.topojson", function(data) {
+d3.json('/data/us-counties.topojson', function(data) {
   var us = topojson.feature(data, data.objects.counties);
 
   unempHash = getHash(dataset);
@@ -41,17 +41,17 @@ d3.json("/data/us-counties.topojson", function(data) {
   var path = d3.geo.path()
     .projection(projection);
 
-  svg.selectAll("path")
+  svg.selectAll('path')
     .data(us.features)
     .enter()
-    .append("path")
-    .attr("d", path)
-    .attr("fill", function(d) { 
+    .append('path')
+    .attr('d', path)
+    .attr('fill', function(d) { 
       return color(unempHash[d.id]);
     })
-    .attr("stroke", "#333333")
-    .attr("stroke-width", 0.5)
-    .on("mouseover", function(d) { 
+    .attr('stroke', '#333333')
+    .attr('stroke-width', 0.5)
+    .on('mouseover', function(d) { 
       showDetails(d.id); 
     });
 

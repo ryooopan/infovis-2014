@@ -2,7 +2,7 @@
 var width = 600;
 var height = 600;
 
-var color = d3.scale.category20(["Kanto-Kansai", "Kanto Area", "Tokyo", "Kansai Area", "Osaka"]);
+var color = d3.scale.category20(['Kanto-Kansai', 'Kanto Area', 'Tokyo', 'Kansai Area', 'Osaka']);
 
 var treemap = d3.layout.treemap()
   .size([width, height])
@@ -92,18 +92,18 @@ function update(source) {
 
   svg_prefs.transition()
     .duration(500)
-    .ease("linear")
+    .ease('linear')
     .attr({
-      "x": function(d) { 
+      'x': function(d) { 
 	return d.x; 
       },
-      "y": function(d) { 
+      'y': function(d) { 
 	return d.y; 
       },
-      "width": function(d) { 
+      'width': function(d) { 
 	return d.dx-1; 
       },
-      "height": function(d) { 
+      'height': function(d) { 
 	return d.dy-1; 
       },
     });

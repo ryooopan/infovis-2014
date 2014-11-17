@@ -13,11 +13,11 @@ var quant = d3.scale.linear()
   .range(['#fff', '#fff7bc', '#fec44f', '#d95f0e', '#f03b20']);
 
 
-var svg = d3.select("body")
-  .append("svg")
+var svg = d3.select('body')
+  .append('svg')
   .attr({
-    "width": width,
-    "height": height,
+    'width': width,
+    'height': height,
   });
 
 var populationHash = {};
@@ -30,7 +30,7 @@ JapanPopulationData.Data.forEach( function (d) {
   populationHash_diff[d.Prefecture] = d.Population_2010 - d.Population_2000;
 });
 
-d3.json("/data/japan.topojson", function(data) {
+d3.json('/data/japan.topojson', function(data) {
   var japan = topojson.feature(data, data.objects.japan);
 
   // Mercator projection
@@ -40,24 +40,24 @@ d3.json("/data/japan.topojson", function(data) {
     .scale(1500);
   var path = d3.geo.path().projection(projection);
 
-  svg.selectAll("path")
+  svg.selectAll('path')
     .data(japan.features)
     .enter()
-    .append("path")
-    .attr("d", path)
-    .attr("fill", function(d) { 
+    .append('path')
+    .attr('d', path)
+    .attr('fill', function(d) { 
       /* 
        *  Scale Color (Red <-> White)	
-       return "rgb(255, " + Math.floor(color(populationHash[d.properties.nam_ja])) + ", " + Math.floor(color(populationHash[d.properties.nam_ja])) + ")"; 
+       return 'rgb(255, ' + Math.floor(color(populationHash[d.properties.nam_ja])) + ', ' + Math.floor(color(populationHash[d.properties.nam_ja])) + ')'; 
       */
       
 
       /* 
        * Diff Color (Red <-> Blue)
        if ( populationHash_diff[d.properties.nam_ja] > 0 ) {
-       return "rgb(255, " + Math.floor(diff(populationHash_diff[d.properties.nam_ja])) + ", " + Math.floor(diff(populationHash_diff[d.properties.nam_ja])) + ")"; 
+       return 'rgb(255, ' + Math.floor(diff(populationHash_diff[d.properties.nam_ja])) + ', ' + Math.floor(diff(populationHash_diff[d.properties.nam_ja])) + ')'; 
        } else {
-       return "rgb(" + Math.floor(diff(populationHash_diff[d.properties.nam_ja])) + ", " + Math.floor(diff(populationHash_diff[d.properties.nam_ja])) + ", 255"; 
+       return 'rgb(' + Math.floor(diff(populationHash_diff[d.properties.nam_ja])) + ', ' + Math.floor(diff(populationHash_diff[d.properties.nam_ja])) + ', 255'; 
        }
       */
       
@@ -68,9 +68,9 @@ d3.json("/data/japan.topojson", function(data) {
       // (*/
 
     })
-    .attr("stroke", "#333333")
-    .attr("stroke-width", 0.5)
-    .on("mouseover", function(d) { 
+    .attr('stroke', '#333333')
+    .attr('stroke-width', 0.5)
+    .on('mouseover', function(d) { 
       showDetails(d.properties.nam_ja); 
     });
 

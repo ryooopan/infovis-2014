@@ -43,14 +43,14 @@ var g = svg.selectAll('g')
   .data([{x: 100, y : 20}])
   .enter()
   .append('g')
-  .attr("height", 200)
-  .attr("widht", 300)
+  .attr('height', 200)
+  .attr('widht', 300)
   .attr('transform', 'translate(20, 10)');
 
 var rect = g.append('rect')
   .attr('y', 17)
-  .attr("height", 5)
-  .attr("width", width)
+  .attr('height', 5)
+  .attr('width', width)
   .attr('fill', '#C0C0C0');
 
 var sliderDefault = {
@@ -62,10 +62,10 @@ var sliderActive = {
   'fill': '#2399F5',
 }
 
-var slider = g.append("circle")
+var slider = g.append('circle')
   .attr(sliderDefault)
-  .attr("cx", function(d) { return d.x; })
-  .attr("cy", function(d) { return d.y; })
+  .attr('cx', function(d) { return d.x; })
+  .attr('cy', function(d) { return d.y; })
   .on('mouseover', function(d) { 
     d3.select(this)
       .transition()
@@ -176,7 +176,7 @@ for(var i=0 ; i < regions.length ; i++) {
 	d3.selectAll('.circle')
 	.style('opacity', '0.1')
 	.attr('stroke', 'white');
-      d3.selectAll('[data-region="' + regionScale(d3.select(this).text()) + '"]')
+      d3.selectAll('[data-region='' + regionScale(d3.select(this).text()) + '']')
 	.style('opacity', '1');
       countryLabel.text('');
     });
@@ -187,14 +187,14 @@ d3.json('/data/nations.json', function(nations) {
   // https://github.com/mbostock/d3/wiki/Arrays
   var bisect = d3.bisector(function(d) { return d[0]; });
 
-  var tooltip = d3.select("body")
-    .append("div")
+  var tooltip = d3.select('body')
+    .append('div')
     .style({
       'position': 'absolute',
       'z-index': '10',
       'visibility': 'hidden',
     })
-    .text("a simple tooltip");
+    .text('a simple tooltip');
 
   var circle = svg.append('g')
     .attr({
@@ -215,10 +215,10 @@ d3.json('/data/nations.json', function(nations) {
     .sort(order)
 
     .on('mouseover', function(d) { 
-      tooltip.style("visibility", "visible"); 
+      tooltip.style('visibility', 'visible'); 
     })
 
-    .on("mousemove", function(d) { 
+    .on('mousemove', function(d) { 
       d3.select(this)
 	.transition()
 	.attr({
@@ -239,7 +239,7 @@ d3.json('/data/nations.json', function(nations) {
 	.attr({
 	  'r': populationScale(d.population) ,
 	});
-      tooltip.style("visibility", "hidden"); 
+      tooltip.style('visibility', 'hidden'); 
     } )
 
     .on('click', function(d) { 
@@ -266,7 +266,7 @@ d3.json('/data/nations.json', function(nations) {
 
   var drag = d3.behavior.drag()
   //.origin(Object)
-    .on("drag", dragMove)
+    .on('drag', dragMove)
     .on('dragend', dragEnd);
 
   slider.call(drag);

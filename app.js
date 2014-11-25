@@ -28,7 +28,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-
+/*
 console.log('jfowe');
 var cheerio = require('cheerio');
 var request = require('request');
@@ -43,7 +43,7 @@ request(url, function (error, response, body)
     console.log(title);
   }
 });
-
+*/
 
 app.get('/', routes.index);
 app.get('/history', routes.history);

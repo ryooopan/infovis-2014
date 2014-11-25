@@ -4,7 +4,9 @@
  */
 
 exports.index = function(req, res){
-  res.render('history', { title: 'Information Visulization with D3.js' });
+  var cheerio = require('cheerio');
+  var request = require('request');
+  res.render('index');
 };
 
 exports.history = function(req, res){

@@ -28,6 +28,23 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+
+console.log('jfowe');
+var cheerio = require('cheerio');
+var request = require('request');
+var url = 'http://google.co.jp';
+
+request(url, function (error, response, body)
+{
+  if (!error && response.statusCode === 200)
+  {
+    var $ = cheerio.load(body),
+    title = $('title').text();
+    console.log(title);
+  }
+});
+
+
 app.get('/', routes.index);
 app.get('/history', routes.history);
 app.get('/japan', routes.japan);
